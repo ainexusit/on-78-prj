@@ -1,0 +1,55 @@
+import pymysql
+import csv
+
+def get_header():
+    header = ['id','name','city']
+    return header
+
+def csv_write(filename,data):
+    with open(r"{}".format(filename),"w") as fp:
+        w =  csv.writer(fp)
+        w.writerow(get_header())
+        w.writerows(data)
+    return True
+def db_connect():
+
+    conn =  pymysql.connect(host='localhost',port=3306,
+                            user='root',password='root',database='offline10')
+
+    cur = conn.cursor()
+    return cur
+
+def fetch_data_from_db(cur):
+    cur.execute("select * from emp")
+    data = cur.fetchall()
+    return data
+
+def main():
+    filename = 'emp.csv'
+    cur  = db_connect()
+    data = fetch_data_from_db(cur)
+    status = csv_write(filename,data)
+    if status:
+        print("{} csv file creted successfully".format(filename))
+    else:
+        print("Issue in file creation")
+    print("done")
+if __name__=='__main__':
+    main()
+
+
+
+import pymysql
+import csv
+conn =  pymysql.connect(host='localhost',port=3306,
+                            user='root',password='root',database='offline10')
+cur = conn.cursor()
+
+with open(r"C:\Users\AI NEXUT IT\Desktop\csv files\people_100_records.csv") as fp:
+    r = csv.reader(fp)
+    for row in list(r)[1:]:
+        query = "insert into emp values({},'{}','{}')".format(row[0],row[1],row[2])
+        cur.execute(query)
+        conn.commit()
+conn.close()
+

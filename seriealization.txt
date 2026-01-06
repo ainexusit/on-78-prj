@@ -1,0 +1,149 @@
+import csv
+
+with open("prd.csv","w",newline='') as fp:
+    w = csv.writer(fp)
+    w.writerow(['prdid','prdname','prdprice'])
+    w.writerows([[101,'coppeer',45454],
+                 [102,'silver',4545],
+                 [103,'gold',4545]])
+import csv
+
+with open("employee.csv","w",newline='') as fp:
+    fn = ['eid','ename','ecity','esal']
+    w = csv.DictWriter(fp,fieldnames=fn)
+    w.writeheader()
+    w.writerow({"eid":101,"ename":"Keshav","ecity":"Pune","esal":54545})
+    w.writerows([{"eid":102,"ename":"madhav","ecity":"Pune","esal":54545},
+                 {"eid":103,"ename":"rakesh","ecity":"Pune","esal":54545},
+                 {"eid":104,"ename":"sonali","ecity":"Pune","esal":54545},
+                 {"eid":105,"ename":"amit","ecity":"Pune","esal":54545},
+                 {"eid":106,"ename":"Keshav","ecity":"Pune","esal":54545},
+                 {"eid":107,"ename":"Keshav","ecity":"Pune","esal":54545}])
+
+import json
+empdata = {"id":101,
+           'name':'keshav',
+           'ismarried':True,
+           'isrelocated':None}
+
+js = json.dumps(empdata)
+print(js)
+
+
+import json
+empdata = {"id":101,
+           'name':'keshav',
+           'ismarried':True,
+           'isrelocated':None}
+
+with open("emp.json","w") as fp:
+    json.dump(empdata,fp)
+
+
+import json
+
+js = """
+{"id": 101, "name": "keshav", "ismarried": true, "isrelocated": null}
+"""
+
+data = json.loads(js)
+print(data)
+
+======================================================================================
+YAML | YML 
+
+from pyaml import yaml
+# empdata = {"id":101,
+#            'name':'keshav',
+#            'ismarried':True,
+#            'isrelocated':None}
+
+ys = """
+id: 101
+name: keshav
+ismarried: yes
+is relocated:
+"""
+
+data = yaml.safe_load(ys)
+print(data)
+
+from pyaml import yaml
+empdata = {"id":101,
+           'name':'keshav',
+           'ismarried':{"a":1,"b":2},
+           'isrelocated': [101,102,103]}
+
+
+
+with open("emp.yaml") as fp:
+    data = yaml.safe_load(fp)
+    print(data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import json
+import csv
+
+def data_filter():
+    pune_records = []
+    mumbai_records = []
+    with open("emp.json") as fp:
+        data = json.load(fp)
+        for record  in data:
+            if record['city']=='Pune':
+                pune_records.append(record)
+            else:
+                mumbai_records.append(record)
+    return pune_records,mumbai_records
+
+def get_headers():
+    header = ['id','name','city','isrelocated']
+    return header
+
+def write_csv(fname,records):
+    with open("{}.csv".format(fname),"w") as fp:
+        w = csv.DictWriter(fp,fieldnames=get_headers())
+        w.writerows(records)
+
+def main():
+    files = data_filter()
+    for record in files:
+        fname = record[0]['city']
+        write_csv(fname,record)
+
+
+if __name__=='__main__':
+    main()
+
+pip install pyaml
+
+from pyaml import yaml
+
+with open("employee.yaml") as fp:
+    data = yaml.safe_load(fp)
+    for record in data:
+        print(record)
+
+
+
+
+
+
+
+
+

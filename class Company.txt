@@ -1,0 +1,53 @@
+class Company:
+    def __init__(self,i,n,c):
+        self.id = i
+        self.name = n
+        self.city = c
+
+    def show(self):
+        print("ID:",self.id)
+        print("Name:",self.name)
+        print("City:",self.city)
+
+obj = Company(101,'keshav','pune')
+obj1 = Company(102,'Amit','mumbai')
+obj2 = Company(103,'Sonali','Chennai')
+
+obj1.show()
+
+class Company:
+    companyname = 'IBM'
+    def __init__(self,i,n,c,sal):
+        self.id = i
+        self.name = n
+        self.city = c
+        self.sal = sal
+
+    def show(self):
+        print("ID:",self.id)
+        print("Name:",self.name)
+        print("City:",self.city)
+        self.bonus_cal()
+        gross = self.bonus+self.sal
+        print("Bonus:",self.bonus)
+        print("Gross :",gross)
+
+        print("Company Name:",Company.companyname)
+
+    def bonus_cal(self):
+        self.bonus = (self.sal/100)*5
+
+
+    @classmethod
+    def company_name_change(cls):
+        cls.companyname = 'Infosys'
+
+    @staticmethod
+    def add(x,y):
+        return x+y
+
+
+obj = Company(101,'keshav','pune',75000)
+obj1 = Company(102,'Amit','mumbai',85000)
+
+print(obj.name)
